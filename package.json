@@ -9,7 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "core-js": "^3.37.0",
+    "core-js": "3",
     "next": "12.3.4",
     "react": "^17.0.2",
     "react-dom": "^17.0.2"
@@ -22,6 +22,5 @@
   "browserslist": [
     "ie 9-11",
     "> 0.01%"
-
   ]
 }

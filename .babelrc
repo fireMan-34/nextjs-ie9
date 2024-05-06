@@ -5,10 +5,7 @@
             {
                 "preset-env": {
                     "useBuiltIns": "entry",
-                    "corejs": { "version": 3  },
-                    "targets": {
-                        "ie": "9"
-                    }
+                    "corejs": { "version": 3  }
                 },
                 "transform-runtime": {},
                 "styled-jsx": {},
