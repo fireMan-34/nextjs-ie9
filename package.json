@@ -9,14 +9,19 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "core-js": "^3.37.0",
     "next": "12.3.4",
     "react": "^17.0.2",
     "react-dom": "^17.0.2"
   },
   "devDependencies": {
+    "@types/node": "20.12.8",
+    "@types/react": "18.3.1",
+    "typescript": "5.4.5"
   },
   "browserslist": [
-    ">0.05%",
-    "ie 6-8"
+    "ie 9-11",
+    "> 0.01%"
+
   ]
 }

@@ -3,8 +3,19 @@
         [
             "next/babel",
             {
-                "target": "es5"
+                "preset-env": {
+                    "useBuiltIns": "entry",
+                    "corejs": { "version": 3  },
+                    "targets": {
+                        "ie": "9"
+                    }
+                },
+                "transform-runtime": {},
+                "styled-jsx": {},
+                "class-properties": {}
             }
         ]
+    ],
+    "plugins": [
     ]
 }
