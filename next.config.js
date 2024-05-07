@@ -35,26 +35,36 @@ const nextConfig = {
 
     config.resolve.alias.compoents = resolve(__dirname, 'components');
     config.resolve.alias.polyfills = resolve(__dirname, 'polyfills');
-    
-    const { isServer,  dev } = options;
-    const originalEntry = config.entry;
+
+    const { isServer, dev } = options;
     // framework polyfill load from node_modules\next\dist\build\webpack-config.js, but not strong for project
     // ? {https://github.com/vercel/next.js/discussions/20992} this is issule about discord, and this has copy from here, not used, and debuging now, this is a question. html will load generate from ./next/server/pages/html static assets , so I have two way to solve it.
-    config.entry = async () => {
-      const entries = await originalEntry();
-      if (entries['main.js']) {
-        // load polyfill only in client
-        const polfyillPath = join(__dirname, './polyfills/core.js');
-        if (!isServer && !entries['main.js'].includes(polfyillPath)) {
+
+    if (!isServer) {
+
+      const originalEntry = config.entry;
+
+      config.entry = async () => {
+        const entries = await originalEntry();
+        // if (entries['main.js'] && !entries['main.js'].includes(polfyillPath)) {
+          // entries['main.js'].unshift(polfyillPath);
+        // }
+        const polfyillPath = './polyfills/core.js';
+        if (entries['main.js'] && !entries['main.js'].includes(polfyillPath)) {
           entries['main.js'].unshift(polfyillPath);
-          console.log('loading polyfills ----- author: fireMan34', entries['main.js']);
         }
+        return entries;
       }
 
-      return entries;
+      // config.optimization.splitChunks.cacheGroups.projectPolyfills = {
+      //   test: /[\\/]node_modules[\\/](@babel|core-js)/,
+      //   name: 'project-polyfills',
+      //   chunks: 'initial',
+      //   enforce: true,
+      // };
     }
 
-    webpackConfigOuter(config,options);
+    webpackConfigOuter(config, options);
 
     return config;
   },
