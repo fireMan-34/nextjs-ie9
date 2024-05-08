@@ -20,6 +20,7 @@
 				"name": "nextjs 构建测试 Run yarn build",
 				"request": "launch",
 				"type": "node-terminal",
+				"sourceMaps": false,
 			}
 
 		]

@@ -1,4 +1,5 @@
-import 'polyfills/history.js';
+import 'polyfills/core';
+import 'polyfills/history';
 import ErrorBoundary from 'compoents/DefaultErrorBoundary';
 import '../styles/globals.css'
 
