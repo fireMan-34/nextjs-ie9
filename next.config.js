@@ -2,6 +2,7 @@ const { writeFile } = require('fs/promises');
 const { join, resolve } = require('path');
 const _webpack = require('next/dist/compiled/webpack/webpack');
 const nextConstants = require('next/dist/shared/lib/constants');
+const { readFileSync } = require('fs');
 
 const { Compilation } = _webpack.webpack;
 
@@ -110,6 +111,16 @@ const nextConfig = {
           config.plugins.unshift(UpdatePolyfillPlugin);
           break;
       }
+      const babelConfig = JSON.parse(readFileSync(join(__dirname, './.babelrc'), { encoding: 'utf8' }));
+      babelConfig.plugins.push(join(__dirname, "./babel/fixWebVital.js"));
+      config.module.rules.push({
+        test: (filePath) => {
+          // 匹配得上，但不生效
+          return /web-vitals.js/.test(filePath);
+        },
+        loader: require.resolve('next/dist/build/babel/loader/index.js'),
+        options: babelConfig,
+      });
     }
 
     config.optimization.minimize = false;
