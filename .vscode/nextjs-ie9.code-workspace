@@ -21,8 +21,14 @@
 				"request": "launch",
 				"type": "node-terminal",
 				"sourceMaps": false,
+			},
+			{
+				"name": "链接 ie 调试: 不兼容 IE 模式",
+				"request": "launch",
+				"type": "msedge",
+				"port": 9222,
+				"url": "http://localhost:3000"
 			}
-
 		]
 	}
 }

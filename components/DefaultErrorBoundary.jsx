@@ -3,6 +3,7 @@ import React from "react";
 function logErrorToyService(error, stack) {
   console.log('捕获到异常信息: ', error);
   console.log('错误堆栈: ', stack);
+  console.trace();
 }
 
 
