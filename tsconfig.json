@@ -7,6 +7,9 @@
       ],
       "compoents/*" : [
         "./components/*"
+      ],
+      "styles/*": [
+        "./styles/*"
       ]
     },
     "outDir": ".next",
