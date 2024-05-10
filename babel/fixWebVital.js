@@ -4,7 +4,6 @@ module.exports = function (babel) {
   return {
     visitor: {
       LogicalExpression(path) {
-        console.log('---work');
         if (
           path.node.operator === "&&" &&
           path.node.left.type === "Identifier" &&

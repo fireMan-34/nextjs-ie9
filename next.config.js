@@ -2,14 +2,15 @@ const { writeFile } = require('fs/promises');
 const { join, resolve } = require('path');
 const _webpack = require('next/dist/compiled/webpack/webpack');
 const nextConstants = require('next/dist/shared/lib/constants');
-const { readFileSync } = require('fs');
-
 const { Compilation } = _webpack.webpack;
 
 const PROJECT_POLYFILLS_NAME = 'project-polyfills';
 
 const noop = (props) => props;
 
+/**
+ * 根据 polyfill 的构建逻辑尝试伪装进行 hack，遗憾的是暂时无法解决 2次引用的问题
+ */
 const UpdatePolyfillPlugin = {
   /**
    * 
@@ -37,8 +38,9 @@ const UpdatePolyfillPlugin = {
     })
   }
 }
+
 /** @type {'entry'|'import'|'script'|'plugin'} */
-let PLOYFILL_MODE = 'plugin';
+let PLOYFILL_MODE = 'entry';
 
 /**
  * out webpack config for debuging config work
@@ -65,6 +67,38 @@ function webpackConfigOuter(config, options) {
   writeFile(join(nextDirPath, `config.${options.isServer ? 'server' : 'client'}.json`), jsonObj, 'utf-8');
 }
 
+function addPolyfillToEntry(config, options, entry = 'main.js') {
+  const { isServer, } = options;
+  const originalEntry = config.entry;
+  config.entry = async () => {
+    const entries = await originalEntry();
+    if (isServer) {
+      return entries;
+    }
+    const polfyillPath = './polyfills/core.js';
+    // 会加入到 main-js 包内
+    if (entry === 'main.js' && entries['main.js'] && !entries['main.js'].includes(polfyillPath)) {
+      entries['main.js'].unshift(polfyillPath);
+    } else {
+      entries[entry] = polfyillPath;
+    }
+    return entries;
+  }
+}
+
+
+
+function splitPolyfillChunk(config) {
+  config.optimization.splitChunks.cacheGroups.projectPolyfills = {
+    test: (filename) => {
+      return [/[\\/]polyfills[\\/](core.js)/, /[\\/]node_modules[\\/](@babel|core-js)/].some(reg => reg.test(filename));
+    },
+    name: PROJECT_POLYFILLS_NAME,
+    chunks: 'initial',
+    enforce: true,
+  };
+}
+
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
@@ -82,45 +116,22 @@ const nextConfig = {
 
       switch (PLOYFILL_MODE) {
         case 'entry':
-          const originalEntry = config.entry;
-          config.entry = async () => {
-            const entries = await originalEntry();
-            const polfyillPath = './polyfills/core.js';
-            // 会加入到 main-js 包内
-            if (!isServer && entries['main.js'] && !entries['main.js'].includes(polfyillPath)) {
-              entries['main.js'].unshift(polfyillPath);
-            }
-            return entries;
-          }
-
+          // 会在 main.js 中生成，对于 frame.js 或者 polyfill 无法干涉
+          addPolyfillToEntry(config, options);
           break;
         case 'import':
+          // 在 app 导入无法对 main.js 以及之前的相关代码进行 polyfill
           break;
         case 'script':
-          console.log('go to _document.js add js file path, and wait to create statick polyfill');
+          // 通过 document Head 进行添加，因无法生成对应的位置，所以只能用 polyfill.js 或者其它静态资源链接的方式
           break;
         case 'plugin':
-          config.optimization.splitChunks.cacheGroups.projectPolyfills = {
-            test: (filename) => {
-              return [/[\\/]polyfills[\\/](core.js)/,  /[\\/]node_modules[\\/](@babel|core-js)/].some(reg => reg.test(filename));
-            },
-            name: PROJECT_POLYFILLS_NAME,
-            chunks: 'initial',
-            enforce: true,
-          };
+          // 会在 polyfill.js 之前被引用，可以修复很多场景，但是会引用2次
+          // 需要手动添加引用，且会生成 2次下载脚本
+          splitPolyfillChunk(config);
           config.plugins.unshift(UpdatePolyfillPlugin);
           break;
       }
-      const babelConfig = JSON.parse(readFileSync(join(__dirname, './.babelrc'), { encoding: 'utf8' }));
-      babelConfig.plugins.push(join(__dirname, "./babel/fixWebVital.js"));
-      config.module.rules.push({
-        test: (filePath) => {
-          // 匹配得上，但不生效
-          return /web-vitals.js/.test(filePath);
-        },
-        loader: require.resolve('next/dist/build/babel/loader/index.js'),
-        options: babelConfig,
-      });
     }
 
     config.optimization.minimize = false;
