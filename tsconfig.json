@@ -1,6 +1,7 @@
 {
   "compilerOptions": {
     "allowJs": true,
+    "baseUrl": ".",
     "paths": {
       "polyfills/*": [
         "./polyfills/*"
@@ -8,7 +9,7 @@
       "compoents/*" : [
         "./components/*"
       ],
-      "styles/*": [
+      "@styles/*": [
         "./styles/*"
       ]
     },

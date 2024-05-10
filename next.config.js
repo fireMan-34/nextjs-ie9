@@ -17,7 +17,7 @@ const nextConfig = {
 
     config.resolve.alias.compoents = resolve(__dirname, 'components');
     config.resolve.alias.polyfills = resolve(__dirname, 'polyfills');
-    config.resolve.alias.styles = resolve(__dirname, 'styles');
+    config.resolve.alias['@styles'] = resolve(__dirname, 'styles');
 
     const { isServer, } = options;
     // framework polyfill load from node_modules\next\dist\build\webpack-config.js, but not strong for project

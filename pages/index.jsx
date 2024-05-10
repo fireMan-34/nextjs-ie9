@@ -1,7 +1,8 @@
+/* eslint-disable @next/next/no-html-link-for-pages */
 import Head from 'next/head'
 import Image from 'next/image'
 import Link from 'next/link'
-import styles from '../styles/Home.module.css'
+import styles from '@styles/Home.module.css'
 
 export default function Home() {
   return (
@@ -13,11 +14,14 @@ export default function Home() {
       </Head>
 
       <main className={styles.main}>
-        <button onClick={function () { console.log('ok') }} >Check Button If Ok</button>
-        <Link href={'/settings'}> Settings </Link>
         <h1 className={styles.title}>
           Welcome to <span>Fixable IE9+</span> <a href="https://nextjs.org">Next.js!</a>
         </h1>
+        <button onClick={function () { console.log('ok') }} >Check Button If Ok</button>
+        <div className={styles.routeNav}>
+          <Link href={'/settings'}>Use NextLink to Settings </Link>
+          <a href='/settings' >Use Browser A To Jump Link</a>
+        </div>
       </main>
 
       <footer className={styles.footer}>

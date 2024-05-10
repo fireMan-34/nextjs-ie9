@@ -4,7 +4,11 @@
 			"path": ".."
 		}
 	],
-	"settings": {},
+	"settings": {
+		"cssModules.pathAlias": {
+			"@styles": "${workspaceFolder}/styles"
+		}
+	},
 	"launch": {
 		"version": "0.2.0",
 		"configurations": [
@@ -33,7 +37,8 @@
 	},
 	"extensions": {
 		"recommendations": [
-			"dbaeumer.vscode-eslint"
+			"dbaeumer.vscode-eslint",
+			"clinyong.vscode-css-modules"
 		]
 	}
 }

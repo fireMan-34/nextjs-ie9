@@ -26,3 +26,8 @@
   font-size: 1.25em;
   color: #430303;
 }
+
+.routeNav {
+  display: flex;
+  justify-content: space-between;
+}
