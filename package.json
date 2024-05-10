@@ -1,7 +1,8 @@
 {
   "name": "next-with-ie9",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "private": true,
+  "description": "this is next12 try to work low browser, support ie9+, and more should be test",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
