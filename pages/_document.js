@@ -1,6 +1,6 @@
 import { Html, Head, Main, NextScript } from "next/document";
 
-export default function () {
+export default function NextDocument () {
   return <Html>
     <Head>
       {/* 降级方案 */}

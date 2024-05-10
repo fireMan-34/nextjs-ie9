@@ -1,3 +1,17 @@
 {
-  "extends": "next/core-web-vitals"
+  "extends": ["next", "plugin:compat/recommended"],
+  "settings": {
+    "polyfills": [
+      "fetch",
+      "object.assign",
+      "string.trimStart",
+      "string.trimEnd",
+      "symbol.description",
+      "array.flat",
+      "array.flatMap",
+      "promise.finally",
+      "process"
+    ]
+  },
+  "plugins": ["compat"]
 }

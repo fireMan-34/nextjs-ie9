@@ -1,10 +1,7 @@
 'use client'
 
-import 'core-js/actual/symbol';
-import 'core-js/actual/set';
 import './history';
 import './performance'
-// import './check';
 
 if (typeof window !== 'undefined') {
   //? issue https://github.com/vercel/next.js/discussions/49771
