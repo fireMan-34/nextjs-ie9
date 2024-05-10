@@ -1,103 +1,13 @@
 const { writeFile } = require('fs/promises');
 const { join, resolve } = require('path');
-const _webpack = require('next/dist/compiled/webpack/webpack');
-const nextConstants = require('next/dist/shared/lib/constants');
-const { Compilation } = _webpack.webpack;
+const addPolyfillToEntry = require('./webpack/addPolyfillToEntries');
+const { UpdatePolyfillPlugin, splitPolyfillChunk } = require('./webpack/UpdatePolyfillPlugin');
+const webpackConfigOuter = require('./webpack/webpackConfigOuter');
 
-const PROJECT_POLYFILLS_NAME = 'project-polyfills';
-
-const noop = (props) => props;
-
-/**
- * 根据 polyfill 的构建逻辑尝试伪装进行 hack，遗憾的是暂时无法解决 2次引用的问题
- */
-const UpdatePolyfillPlugin = {
-  /**
-   * 
-   * @param {import('next/dist/compiled/webpack/webpack').webpack.Compiler} compiler 
-   */
-  apply(compiler) {
-    compiler.hooks.make.tap('UpdatePolyfillPlugin', (compilation) => {
-      compilation.hooks.processAssets.tapPromise(
-        {
-          name: 'UpdatePolyfillPlugin',
-          stage: Compilation.PROCESS_ASSETS_STAGE_ADDITIONAL,
-        },
-        async (assets) => {
-          const keysFromAssets = Object.keys(assets);
-          const keyAboutUpdatePolyfillAssets = keysFromAssets.find(key => key.includes(PROJECT_POLYFILLS_NAME));
-          if (keyAboutUpdatePolyfillAssets) {
-            compilation.updateAsset(keyAboutUpdatePolyfillAssets, noop, (assetInfo) => {
-              return Object.assign({
-                [nextConstants.CLIENT_STATIC_FILES_RUNTIME_POLYFILLS_SYMBOL]: true
-              }, assetInfo);
-            })
-          }
-        }
-      )
-    })
-  }
-}
 
 /** @type {'entry'|'import'|'script'|'plugin'} */
 let PLOYFILL_MODE = 'entry';
 
-/**
- * out webpack config for debuging config work
- * @param {*} config 
- * @param {import('next/dist/server/config-shared').WebpackConfigContext} options 
- */
-function webpackConfigOuter(config, options) {
-  const nextDirPath = join(__dirname, '.next');
-
-  let jsonObj = {
-    config,
-    options,
-  };
-
-  jsonObj = JSON.stringify(jsonObj, (key, value) => {
-    if (typeof value === 'bigint') {
-      return value.toString();
-    } else if (typeof value === 'function') {
-      return value.toString();
-    }
-    return value;
-  }, 2);
-
-  writeFile(join(nextDirPath, `config.${options.isServer ? 'server' : 'client'}.json`), jsonObj, 'utf-8');
-}
-
-function addPolyfillToEntry(config, options, entry = 'main.js') {
-  const { isServer, } = options;
-  const originalEntry = config.entry;
-  config.entry = async () => {
-    const entries = await originalEntry();
-    if (isServer) {
-      return entries;
-    }
-    const polfyillPath = './polyfills/core.js';
-    // 会加入到 main-js 包内
-    if (entry === 'main.js' && entries['main.js'] && !entries['main.js'].includes(polfyillPath)) {
-      entries['main.js'].unshift(polfyillPath);
-    } else {
-      entries[entry] = polfyillPath;
-    }
-    return entries;
-  }
-}
-
-
-
-function splitPolyfillChunk(config) {
-  config.optimization.splitChunks.cacheGroups.projectPolyfills = {
-    test: (filename) => {
-      return [/[\\/]polyfills[\\/](core.js)/, /[\\/]node_modules[\\/](@babel|core-js)/].some(reg => reg.test(filename));
-    },
-    name: PROJECT_POLYFILLS_NAME,
-    chunks: 'initial',
-    enforce: true,
-  };
-}
 
 
 /** @type {import('next').NextConfig} */
