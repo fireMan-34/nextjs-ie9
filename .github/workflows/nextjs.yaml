@@ -5,7 +5,7 @@ on:
 jobs: 
   # Install Environment
   build:
-    runs-on: ubuntu-lastest
+    runs-on: ubuntu-latest
     strategy: 
       matrix:
         node-version: [16.x]
