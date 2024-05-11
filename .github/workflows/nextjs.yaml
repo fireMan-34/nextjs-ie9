@@ -8,7 +8,8 @@ jobs:
     runs-on: ubuntu-latest
     strategy: 
       matrix:
-        node-version: [16.x]
+        # https://github.blog/changelog/2023-09-22-github-actions-transitioning-from-node-16-to-node-20/
+        node-version: [20.x]
 
     steps:
       - uses: actions/checkout@v4
@@ -16,7 +17,7 @@ jobs:
         uses: actions/setup-node@v3
         with: 
           node-version: ${{matrix.node-version}}
-          cache: 'yarn'
-      - run: yarn ci
-      - run: yarn lint
-      - run: yarn build
+          cache: 'npm'
+      - run: npm ci
+      - run: npm lint
+      - run: npm build
