@@ -1,0 +1,8 @@
+{
+  "exec": "yarn build && yarn start",
+  "ignore": [
+    "./next",
+    "./node_modules"
+  ],
+  "$schema": "https://json.schemastore.org/nodemon.json"
+}

@@ -1,7 +1,0 @@
-{
-  "exec": "pwsh.exe --COMMAND \"if (Test-Path ./.next) { Remove-Item -Path ./.next -Recurse -Force }\" && yarn build && yarn start",
-  "ignore": [
-    "./next",
-    "./node_modules"
-  ]
-}

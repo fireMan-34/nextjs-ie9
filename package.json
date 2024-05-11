@@ -7,8 +7,9 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
+    "preview": "node ./scripts/preview.js",
     "lint": "yarn style-lint && next lint",
-    "style-lint": "yarn stylelint \"./styles\"",
+    "style-lint": "stylelint \"./styles\"",
     "postinstall": "patch-package"
   },
   "dependencies": {
@@ -20,8 +21,10 @@
     "react-dom": "^17.0.2"
   },
   "devDependencies": {
+    "@next/env": "12.3.4",
     "@types/node": "20.12.8",
     "@types/react": "18.3.1",
+    "cross-env": "^7.0.3",
     "eslint": "^8.57.0",
     "eslint-config-next": "12.3.4",
     "eslint-plugin-compat": "^4.2.0",
