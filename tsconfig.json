@@ -11,6 +11,9 @@
       ],
       "@styles/*": [
         "./styles/*"
+      ],
+      "@public/*": [
+        "./public/*"
       ]
     },
     "outDir": ".next",
