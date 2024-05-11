@@ -1,42 +1,52 @@
-'use client';
+"use client";
 
+var isWinodw = !!(typeof window !== "undefined");
+var hasHistory = !!(typeof history !== "undefined");
 
-if (typeof history !== 'undefined' && typeof history.replaceState !== 'function') {
-  history.replaceState = function (state, unused, url) {
+if (isWinodw) {
+  function commonPolyfillJump(url, options = { name: '' }) {
+    var { name } = options;
+    if (!location.href || !location.pathname) {
+      if (process.env.NEXT_PUBLIC_DEBUG_ROUTE) {
+        console.log('unsupport localtion href to jump');
+      }
 
-    if (process.env.NODE_ENV !== 'production') {
-      console.log('history.replaceState state: ', state);   
-    }
-    var link = url;
-    var pathname = location.pathname;
-    var formatGo = [ pathname.replace('index.html', ''), link.replace('index.html', '') ]
-    if (formatGo[0] === formatGo[1]) {
-      // skip same go
       return;
     }
-    if (link) {
-      // wait to add temp state
-      globalThis.location.href = link;
+
+    var pathname = location.pathname;
+    var pathnameReplace = pathname.replace("index.html", "");
+    var urlReplace = url.replace("index.html", "");
+
+    if (process.env.NEXT_PUBLIC_DEBUG_ROUTE) {
+      console.log("will jump from this url", {
+        name,
+        url,
+        pathname,
+        urlReplace,
+        pathnameReplace,
+        isSame: urlReplace === pathnameReplace,
+      });
     }
+
+    if (urlReplace === pathnameReplace) {
+      return;
+    }
+
+    if (!process.env.NEXT_PUBLIC_DEBUG_ROUTE) {
+    }
+    location.href = urlReplace;
   }
-}
-
-if (typeof history !== 'undefined' && typeof history.pushState !== 'function') {
-  // wait to add temp state
-  history.pushState = function (state, unused, url) {
-    if (process.env.NODE_ENV !== 'production') {
-      console.log('history.push state: ', state);   
+  if (hasHistory) {
+    if (typeof history.replaceState !== "function") {
+      history.replaceState = function (state, unused, url) {
+        commonPolyfillJump(url, { name: 'history.replaceState' });
+      }
     }
-    var link = url;
-    var pathname = location.pathname;
-    var formatGo = [ pathname.replace('index.html', ''), link.replace('index.html', '') ]
-    if (formatGo[0] === formatGo[1]) {
-      // skip same go
-      return;
-    }
-    if (link) {
-      // wait to add temp state
-      globalThis.location.href = link;
+    if (typeof history.pushState !== "function") {
+      history.pushState = function (state, unused, url) {
+        commonPolyfillJump(url, { name: 'history.pushState' });
+      };
     }
   }
 }

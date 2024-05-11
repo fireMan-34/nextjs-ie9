@@ -56,6 +56,7 @@ function Doc({ doc, reads }) {
         <h2 className={styles["doc-title"]}>{title}</h2>
         <h3 className={styles["doc-title"]}>{titleDesc}</h3>
         <h4 className={styles.author}>{author}</h4>
+        <h5 className={styles['doc-title']}>跳转 polyfill 禁用:{process.env.NEXT_PUBLIC_DEBUG_ROUTE}</h5>
         <p className={styles["doc-desc"]}>{desc}</p>
       </div>
       <div className={styles["main-doc"]}>
@@ -67,6 +68,9 @@ function Doc({ doc, reads }) {
             <Link href={`/doc/${read.linkId}?desc=${read.desc}` }>{read.title}</Link>
           </p>
         ))}
+        <p className={styles['doc-read-item-container']}>
+          <Link href={"/doc/about"}>关于服务端渲染页面</Link>
+        </p>
       </div>
     </main>
   );

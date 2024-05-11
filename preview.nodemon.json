@@ -1,5 +1,5 @@
 {
-  "exec": "pwsh.exe --Command \"cls;if (Test-Path ./.next) { Remove-Item -Path ./.next -Recurse -Force }\" && yarn cross-env-shell APP_ENV=preview && yarn build && yarn start",
+  "exec": "pwsh.exe --Command \"cls;if (Test-Path ./.next) { Remove-Item -Path ./.next -Recurse -Force }\" && yarn build && yarn start",
   "ignore": [
     "./next",
     "./node_modules"
