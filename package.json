@@ -27,10 +27,8 @@
     "nodemon": "^3.1.0",
     "postcss-flexbugs-fixes": "^5.0.2",
     "postcss-preset-env": "^9.5.11",
+    "stylelint": "^16.5.0",
+    "stylelint-no-unsupported-browser-features": "^8.0.1",
     "typescript": "5.4.5"
-  },
-  "browserslist": [
-    "ie 9-11",
-    "> 0.01%"
-  ]
+  }
 }

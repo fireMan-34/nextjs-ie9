@@ -1,0 +1,15 @@
+{
+  "plugins": [
+    "stylelint-no-unsupported-browser-features"
+  ],
+  "rules": {
+    "plugin/no-unsupported-browser-features": [
+      true,
+      {
+        "ignore": [],
+        "ignorePartialSupport": true,
+        "severity": "warning"
+      }
+    ]
+  }
+}

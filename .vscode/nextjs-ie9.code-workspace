@@ -38,7 +38,9 @@
 	"extensions": {
 		"recommendations": [
 			"dbaeumer.vscode-eslint",
-			"clinyong.vscode-css-modules"
+			"clinyong.vscode-css-modules",
+			"webben.browserslist",
+			"stylelint.vscode-stylelint"
 		]
 	}
 }
