@@ -7,7 +7,6 @@
       true,
       {
         "ignore": [
-          "flexbox"
         ],
         "ignorePartialSupport": true,
         "severity": "warning"
