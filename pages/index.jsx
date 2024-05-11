@@ -21,6 +21,7 @@ export default function Home() {
         <div className={styles.routeNav}>
           <Link href={'/settings'}>Use NextLink to Settings </Link>
           <a href='/settings' >Use Browser A To Jump Link</a>
+          <Link href={'/doc'}>Use NextLink to Doc </Link>
         </div>
       </main>
 
