@@ -19,4 +19,4 @@ jobs:
           cache: 'yarn'
       - run: yarn ci
       - run: yarn lint
-      - run: yarn buld
+      - run: yarn build
