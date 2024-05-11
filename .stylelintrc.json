@@ -6,7 +6,9 @@
     "plugin/no-unsupported-browser-features": [
       true,
       {
-        "ignore": [],
+        "ignore": [
+          "flexbox"
+        ],
         "ignorePartialSupport": true,
         "severity": "warning"
       }
