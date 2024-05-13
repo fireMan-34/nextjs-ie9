@@ -1,6 +1,9 @@
 import { sleep } from "utils/caller";
 import styles from "@styles/Doc.module.css";
 
+/**
+ * @type {import("next").GetStaticPaths}
+ */
 export async function getStaticPaths() {
   await sleep(300);
   const paths = [1, 2].map((id) => ({
@@ -16,6 +19,10 @@ export async function getStaticPaths() {
   };
 }
 
+/**
+ * 
+ * @type {import("next").GetStaticProps}
+ */
 export async function getStaticProps(props) {
   // get route dynamically param
   const { params } = props;
@@ -29,8 +36,11 @@ export async function getStaticProps(props) {
     },
   };
 }
-
-export default function DocId({ linkId, fromProps }) {
+/**
+ * no catch variable
+ * @type {import('next').InferGetStaticPropsType<typeof getStaticPaths>}
+ */
+function DocId({ linkId, fromProps }) {
   return (
     <main className={styles["main-doc"]}>
       <h1 className={styles["doc-title"]}>Doc Id : {linkId ?? "none"}</h1>
@@ -38,3 +48,5 @@ export default function DocId({ linkId, fromProps }) {
     </main>
   );
 }
+
+export default DocId;
