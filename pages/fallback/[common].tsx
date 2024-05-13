@@ -30,7 +30,9 @@ export const getStaticProps: GetStaticProps = async (ctx) => {
   const dirInfos = await readdir(
     join(process.cwd(), ".next", "server", "pages", "fallback", "true"),
     { withFileTypes: true, recursive: false }
-  );
+  ).catch(err => {
+    return [];
+  });
 
   const pages = dirInfos.filter(d => d.isFile() && /^[^\[].*[^\]].html$/.test(d.name)).map(({ path, name }) => ({ name, path, pageName: name.split(".").shift() }));
 
