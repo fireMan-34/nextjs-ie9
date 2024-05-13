@@ -2,7 +2,7 @@ import { sleep } from "utils/caller";
 import styles from "@styles/Doc.module.css";
 
 export async function getStaticPaths() {
-  await sleep(3000);
+  await sleep(300);
   const paths = [1, 2].map((id) => ({
     params: { id: `${id}` },
     // linkId: id,
@@ -21,7 +21,7 @@ export async function getStaticProps(props) {
   const { params } = props;
   const { id } = params;
 
-  await sleep(3000);
+  await sleep(300);
   return {
     props: {
       linkId: id,
