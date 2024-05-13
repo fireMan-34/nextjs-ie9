@@ -56,7 +56,9 @@ const nextConfig = {
   experimental: {
     // browsersListForSwc: true,
     legacyBrowsers: true,
-  }
+  },
+  // 添加构建超时界限
+  staticPageGenerationTimeout: 300,
 }
 
 module.exports = nextConfig
