@@ -5,9 +5,9 @@
     "./node_modules"
   ],
   "watch": [
-    "**/*.js",
-    "**/*.jsx",
-    "**/*.json"
+    "next.config.json",
+    "preview.nodemon.json",
+    "./pages"
   ],
   "$schema": "https://json.schemastore.org/nodemon.json",
   "cwd": "."
