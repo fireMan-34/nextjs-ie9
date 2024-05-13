@@ -59,6 +59,8 @@ const nextConfig = {
   },
   // 添加构建超时界限
   staticPageGenerationTimeout: 300,
+  // 请注意，useFileSystemPublicRoutes禁用来自 SSR 的文件名路由；客户端路由仍然可以访问这些路径。使用此选项时，您应该防止以编程方式导航到您不想要的路线
+  // useFileSystemPublicRoutes:false,
 }
 
 module.exports = nextConfig

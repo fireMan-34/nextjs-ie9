@@ -3,7 +3,7 @@ declare module "process" {
     namespace NodeJS {
       interface ProcessEnv {
         /** 跳转 polyfill */
-        NEXT_PUBLIC_DEBUG_ROUTE: boolean;
+        NEXT_PUBLIC_DEBUG_ROUTE: string;
       }
     }
   }
