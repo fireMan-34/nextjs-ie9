@@ -11,6 +11,7 @@ function Jump({  }) {
       <Link href={"/fallback/false/false"} >fallback false 页面</Link>
       <Link href={"/fallback/true/true"} >fallback true 页面</Link>
       <Link href={"/fallback/blocking/blocking"} >fallback blocking 页面</Link>
+      <Link href={"/fallback/common"} >fallback common 页面</Link>
     </nav>
   </>
 }
