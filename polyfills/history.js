@@ -6,7 +6,8 @@ var hasHistory = !!(typeof history !== "undefined");
 if (isWinodw) {
   function commonPolyfillJump(url, options = { name: '' }) {
     var { name } = options;
-    if (!location.href || !location.pathname) {
+
+    if (!location.href) {
       if (process.env.NEXT_PUBLIC_DEBUG_ROUTE) {
         console.log('unsupport localtion href to jump');
       }
@@ -14,28 +15,38 @@ if (isWinodw) {
       return;
     }
 
-    var pathname = location.pathname;
-    var pathnameReplace = pathname.replace("index.html", "");
-    var urlReplace = url.replace("index.html", "");
+    if (/^(https?)/.test(url)) {
+      location.href = url;
+      return;
+    }
+
+    var href = location.href;
+    var protocol = location.protocol;
+    var host = location.host;
+    var target = protocol + '//' + host + url;
 
     if (process.env.NEXT_PUBLIC_DEBUG_ROUTE) {
       console.log("will jump from this url", {
         name,
         url,
-        pathname,
-        urlReplace,
-        pathnameReplace,
-        isSame: urlReplace === pathnameReplace,
+        href,
+        target,
+        isSame: target === href,
+        env: process.env.NEXT_PUBLIC_DEBUG_ROUTE,
       });
     }
 
-    if (urlReplace === pathnameReplace) {
+    if (target === href) {
+      // if will build change true
+      if (process.env.NEXT_PUBLIC_DEBUG_ROUTE === 'true') {
+        // debugger;
+      }
       return;
     }
 
     if (!process.env.NEXT_PUBLIC_DEBUG_ROUTE) {
     }
-    location.href = urlReplace;
+    location.href = target;
   }
   if (hasHistory) {
     if (typeof history.replaceState !== "function") {
