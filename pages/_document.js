@@ -1,5 +1,19 @@
-import { Html, Head, Main, NextScript } from "next/document";
+import Document,{ Html, Head, Main, NextScript, } from "next/document";
 import Jump from "layouts/Jump";
+
+/**
+ * @type {import("next/document").DocumentInitialProps}
+ */
+export const getInitialProps = async (ctx) => {
+  const originRenderPage = ctx.renderPage;
+  ctx.renderPage = () => originRenderPage({
+    enhanceApp: (App) => App,
+    enhanceComponent: (Component) => Component,
+  });
+
+  const initialProps = await Document.getInitialProps(ctx);
+  return initialProps;
+};
 
 export default function NextDocument() {
   return <Html>

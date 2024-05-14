@@ -3,7 +3,11 @@ import '../styles/globals.css'
 
 function MyApp({ Component, pageProps }) {
   return <ErrorBoundary>
-    <Component {...pageProps} />
+    {/* this is page component */}
+    <Component 
+      {...pageProps} 
+      pageTime={Date.now().toLocaleString()}
+    />
   </ErrorBoundary>
 }
 

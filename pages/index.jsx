@@ -4,7 +4,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import styles from '@styles/Home.module.css'
 
-export default function Home() {
+export default function Home({ pageTime }) {
   return (
     <div className={styles.container}>
       <Head>
@@ -16,6 +16,7 @@ export default function Home() {
       <main className={styles.main}>
         <h1 className={styles.title}>
           Welcome to <span>Fixable IE9+</span> <a href="https://nextjs.org">Next.js!</a>
+          <span>Run time: {pageTime}</span>
         </h1>
         <button onClick={function () { console.log('ok') }} >Check Button If Ok</button>
         <div className={styles.routeNav}>
