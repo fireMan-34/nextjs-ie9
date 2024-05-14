@@ -7,7 +7,9 @@
 	"settings": {
 		"cssModules.pathAlias": {
 			"@styles": "${workspaceFolder}/styles"
-		}
+		},
+		"editor.fontFamily": "Fira Code",
+		"editor.fontLigatures": true
 	},
 	"launch": {
 		"version": "0.2.0",

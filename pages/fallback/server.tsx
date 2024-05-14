@@ -1,6 +1,17 @@
 import { GetServerSideProps } from "next";
+import Error from 'next/error';
 
-const server = ({ title, query, params, resolvedUrl }) => {
+const server = ({ title, query, params, resolvedUrl, errorCode }) => {
+
+  if (errorCode) {
+    return (
+      <main>
+        <Error statusCode={errorCode} />
+        <h1>Has a server error with Code: {errorCode}</h1>
+      </main>
+    )
+  }
+
   return (
     <main>
       <h1>{title}</h1>
