@@ -7,7 +7,8 @@
   "watch": [
     "next.config.json",
     "preview.nodemon.json",
-    "./pages/*.(tsx?|jsx?)"
+    "./pages/*.(tsx?|jsx?)",
+    "./layouts/*.(tsx?|jsx?)"
   ],
   "$schema": "https://json.schemastore.org/nodemon.json",
   "cwd": "."
