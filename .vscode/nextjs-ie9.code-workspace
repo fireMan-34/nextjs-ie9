@@ -11,7 +11,8 @@
 		"editor.fontFamily": "Fira Code",
 		"editor.fontLigatures": true,
 		"path-intellisense.mappings": {
-			"/images": "${workspaceFolder}/public/images"
+			"/images": "${workspaceFolder}/public/images",
+			"/medias": "${workspaceFolder}/public/medias"
 		}
 	},
 	"launch": {

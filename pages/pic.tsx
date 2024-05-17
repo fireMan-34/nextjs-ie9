@@ -15,5 +15,12 @@ export default function ImagePage() {
       width={96}
       height={96}
     />
+    <br />
+    <video
+      src="/medias/1.mp4"
+    />
+    <video controls controlsList='' preload='' autoPlay autoSave='' >
+      <source  src='/medias/1.mp4' />
+    </video>
   </main>
 }
