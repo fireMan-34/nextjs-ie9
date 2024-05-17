@@ -9,7 +9,10 @@
 			"@styles": "${workspaceFolder}/styles"
 		},
 		"editor.fontFamily": "Fira Code",
-		"editor.fontLigatures": true
+		"editor.fontLigatures": true,
+		"path-intellisense.mappings": {
+			"/images": "${workspaceFolder}/public/images"
+		}
 	},
 	"launch": {
 		"version": "0.2.0",

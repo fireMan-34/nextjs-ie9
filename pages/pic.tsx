@@ -9,5 +9,11 @@ export default function ImagePage() {
       src={JPG}
       alt='this is a image'
     />
+    <Image 
+      src="/images/1.jpg"
+      alt='this is static image'
+      width={96}
+      height={96}
+    />
   </main>
 }

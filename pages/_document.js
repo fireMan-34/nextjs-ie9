@@ -1,4 +1,5 @@
 import Document,{ Html, Head, Main, NextScript, } from "next/document";
+import Script from "next/script";
 import Jump from "layouts/Jump";
 
 /**
@@ -28,6 +29,17 @@ export default function NextDocument() {
       <Jump />
       <Main />
       <NextScript />
+      <Script 
+        src="https://unpkg.com/jquery@3.7.1/dist/jquery.js"
+        // 在交互之前触发 ,　在　polyfill.js 后插入
+        // strategy="beforeInteractive"
+        // 在交互式之后
+        // strategy="afterInteractive"
+        // 懒加载
+        // strategy="lazyOnload"
+        // 工作者线程
+        // strategy="worker"
+      />
     </body>
   </Html>
 }
