@@ -38,6 +38,32 @@
 				"type": "msedge",
 				"port": 9222,
 				"url": "http://localhost:3000"
+			},
+			{
+				"name": "Nest.js: debug 服务端渲染",
+				"type": "node-terminal",
+				"request": "launch",
+				"command": "yarn dev"
+			},
+			{
+				"name": "Nest.js 客户端渲染",
+				"type": "chrome",
+				"request": "launch",
+				"url": "http://localhost:3000"
+			},
+			{
+				"name": "Nest.js: debug full stack",
+				"type": "node-terminal",
+				"request": "launch",
+				"command": "npm run dev",
+				"console": "integratedTerminal",
+				"serverReadyAction":{
+					"action": "debugWithEdge",
+					"pattern": "started server on .+, url: (https?://.+)",
+					"uriFormat": "%s",
+					"webRoot": "${workspaceFolder}",
+					"killOnServerStop": false
+				}
 			}
 		]
 	},
