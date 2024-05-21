@@ -1,3 +1,4 @@
+import { appWithTranslation, } from 'next-i18next';
 import ErrorBoundary from 'compoents/DefaultErrorBoundary';
 import Layout from 'layouts/layout';
 import '../styles/globals.css'
@@ -19,4 +20,4 @@ function MyApp({ Component, pageProps }) {
   </ErrorBoundary>
 }
 
-export default MyApp
+export default appWithTranslation(MyApp);

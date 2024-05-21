@@ -1,6 +1,7 @@
 import Document,{ Html, Head, Main, NextScript, } from "next/document";
 import Script from "next/script";
 import Jump from "layouts/Jump";
+import { initReactI18next } from "react-i18next";
 
 /**
  * @type {import("next/document").DocumentInitialProps}
@@ -13,6 +14,7 @@ export const getInitialProps = async (ctx) => {
   });
 
   const initialProps = await Document.getInitialProps(ctx);
+  await initReactI18next();
   return initialProps;
 };
 

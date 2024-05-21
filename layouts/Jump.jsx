@@ -14,6 +14,7 @@ function Jump({  }) {
       <Link href={"/fallback/common"} >fallback common 页面</Link>
       <Link href={"/fallback/server?shaonian=3"} >fallback server 页面</Link>
       <Link href={"/fallback/client"} >fallback client 页面</Link>
+      <Link href={"/i18n"} >国际化</Link>
     </nav>
   </>
 }
