@@ -2,6 +2,7 @@ const { resolve } = require('path');
 const addPolyfillToEntry = require('./webpack/addPolyfillToEntries');
 const { UpdatePolyfillPlugin, splitPolyfillChunk } = require('./webpack/UpdatePolyfillPlugin');
 const webpackConfigOuter = require('./webpack/webpackConfigOuter');
+const withTM = require('next-transpile-modules')([ 'react-i18next', 'i18next' ]);
 
 
 /** @type {'entry'|'import'|'script'|'plugin'} */
@@ -64,4 +65,4 @@ const nextConfig = {
   i18n: require('./next-i18next.config').i18n,
 }
 
-module.exports = nextConfig
+module.exports = withTM(nextConfig);
