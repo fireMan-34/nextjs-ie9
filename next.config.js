@@ -63,6 +63,53 @@ const nextConfig = {
   // 请注意，useFileSystemPublicRoutes禁用来自 SSR 的文件名路由；客户端路由仍然可以访问这些路径。使用此选项时，您应该防止以编程方式导航到您不想要的路线
   // useFileSystemPublicRoutes:false,
   i18n: require('./next-i18next.config').i18n,
+
+  /**
+   * https://www.nextjs.cn/docs/advanced-features/security-headers
+   * @returns 
+   */
+  async headers() {
+    return [
+      {
+        source: '/(.*)',
+        headers: [
+          {
+            key: 'X-DNS-Prefetch-Control',
+            value: 'on'
+          },
+          {
+            key: 'Strict-Transport-Security',
+            value: 'max-age=63072000; includeSubDomains; preload'
+          },
+          {
+            key: 'X-XSS-Protection',
+            value: '1; mode=block'
+          },
+          {
+            key: 'X-Frame-Options',
+            value: 'SAMEORIGIN'
+          },
+          {
+            key: 'Permissions-Policy',
+            value: 'camera=(), microphone=(), geolocation=(), interest-cohort=()'
+          },
+          {
+            key: 'X-Content-Type-Options',
+            value: 'nosniff'
+          },
+          {
+            key: 'Referrer-Policy',
+            value: 'origin-when-cross-origin'
+          },
+          {
+            // key: 'Content-Security-Policy',
+            // value: // Your CSP Policy
+          }
+          
+        ]
+      }
+    ]
+  }
 }
 
 module.exports = withTM(nextConfig);
