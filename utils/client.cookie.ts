@@ -1,8 +1,7 @@
 export class CookieStorage {
-  constructor(){
-  }
+  constructor() {}
 
-  cookie2Map(){
+  cookie2Map() {
     const chunks = document.cookie.split(";");
     const map = {};
 
@@ -13,15 +12,40 @@ export class CookieStorage {
     return map;
   }
 
-  map2Cookie(map: { [k:string]: string }) {
+  map2Cookie(map: { [k: string]: string }) {
     return Object.entries(map).reduce((res, [k, v]) => {
-      return(k && v)? res + `${k}=${v};`: res;
-    }, `domain=${location.host};`);
+      return k && v ? res + `${k}=${v};` : res;
+    }, `domain=${location.host};Path=/;`);
   }
 
-  set(key: string, value: string,) {
+  setCookie(
+    name: string,
+    value: string,
+    options: { domain?: string; path?: string, debug?: boolean } = {}
+  ) {
+    const { domain, path, debug } = options;
+    let cookie = `${name}=${value}`;
+    if (domain) {
+      cookie += `;domain=${domain}`;
+    }
+    if (path) {
+      cookie += `;path=${path}`;
+    }
+    document.cookie = cookie;
+    if (debug) {
+      console.log('set cookie: ', { cookie, documentCookie: document.cookie });  
+    }
+  }
+
+  set(key: string, value: string) {
     const map = this.cookie2Map();
     map[key] = value;
+    // document.cookie = this.map2Cookie(map);
+     this.setCookie(key, value, {
+      // domain: location.host ?? document.domain,
+      path: '/',
+      debug: process.env.NODE_ENV === 'development',
+     });
   }
 
   get(key: string) {
@@ -36,5 +60,8 @@ export class CookieStorage {
   }
 
   clear() {
+    for (const key in this.cookie2Map()) {
+      this.remove(key);
+    }
   }
 }
