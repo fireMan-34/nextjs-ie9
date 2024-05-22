@@ -1,0 +1,33 @@
+.container {
+  min-width: 375px ;
+  width: 100%;
+  max-width: 100%;
+  min-height: 100vh;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.form {
+
+}
+
+.form>p>label {
+  display: inline-block;
+  text-align: right;
+  width: 6em;
+  margin-right: 1em;
+}
+.form>p>label::after {
+  content: ":";
+  margin-left: 1em;
+}
+.form-button-group {
+  display: flex;
+  justify-content: space-around;
+}
+.form-button-group>button {
+  width: 6em;
+}
