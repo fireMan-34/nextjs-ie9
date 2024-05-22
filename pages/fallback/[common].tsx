@@ -30,7 +30,7 @@ export const getStaticProps: GetStaticProps = async (ctx) => {
   const dirInfos = await readdir(
     join(process.cwd(), ".next", "server", "pages", "fallback", "true"),
     { withFileTypes: true, recursive: false }
-  ).catch(err => {
+  ).then(v => Array.isArray(v) ? v : []).catch(err => {
     return [];
   });
 
