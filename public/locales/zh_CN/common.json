@@ -1,3 +1,6 @@
 {
-  "lib": "next-i18n 库"
+  "lib": "next-i18n 库",
+  "watch.name": "观察名：{{name}}",
+  "sweet": "甜蜜的",
+  "simple": "简易的"
 }

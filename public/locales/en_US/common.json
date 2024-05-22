@@ -1,3 +1,6 @@
 {
-  "lib": "next-i18n lib"
+  "lib": "next-i18n lib",
+  "watch.name": "watch:{{name}}",
+  "sweet": "sweet",
+  "simple": "simple"
 }
