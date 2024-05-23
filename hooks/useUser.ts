@@ -75,15 +75,17 @@ export default function useUser(props: UseUser) {
         `${headerEncode}.${payloadEncode}`,
         PUBLIC_AUTH_KEY
       ).toString();
-      if (clientSignature === signatuire) {
-        console.log(header, payload, { clientSignature, signatuire });
+      if (clientSignature !== signatuire) {
+        alert("无效签名");
+      } else if (Date.now() >= payload.exp) {
+        alert("token 接近超时");
+      } else {
         const { exp } = payload;
 
         const cookie = new CookieStorage();
         cookie.setCookie("accessToken", data.accessToken, { expires: exp });
-        router.replace('/Login', null, {});
-      } else {
-        alert("无效签名");
+        setUser(user);
+        router.push('/Login', null, {});
       }
     } else {
       alert("注册失败: " + data.msg ?? "");
