@@ -59,7 +59,6 @@ const handler: NextApiHandler = async (req, res) => {
     });
 
     if (hasUserCheck) {
-      console.log("检测到相同账号");
       return res.status(200).json({
         msg: "has same account",
         hasUserCheck,
@@ -81,7 +80,7 @@ const handler: NextApiHandler = async (req, res) => {
       userInfo,
       userPassword,
       user,
-      accessToken: (user.id)
+      accessToken: createAccessToken(user.id)
     });
   }
 };
