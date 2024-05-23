@@ -21,9 +21,9 @@ export class CookieStorage {
   setCookie(
     name: string,
     value: string,
-    options: { domain?: string; path?: string, debug?: boolean } = {}
+    options: { domain?: string; path?: string; debug?: boolean, expires?: number|string } = {}
   ) {
-    const { domain, path, debug } = options;
+    const { domain, path, debug, expires } = options;
     let cookie = `${name}=${value}`;
     if (domain) {
       cookie += `;domain=${domain}`;
@@ -31,21 +31,27 @@ export class CookieStorage {
     if (path) {
       cookie += `;path=${path}`;
     }
+    if (expires) {
+      const expiresTime = new Date(expires).toUTCString();
+      if (!expiresTime.includes('Invalid Date')) {
+        cookie += `;expires=${expiresTime}`;
+      }
+    }
     document.cookie = cookie;
     if (debug) {
-      console.log('set cookie: ', { cookie, documentCookie: document.cookie });  
+      console.log("set cookie: ", { cookie, documentCookie: document.cookie });
     }
   }
 
   set(key: string, value: string) {
-    const map = this.cookie2Map();
-    map[key] = value;
+    // const map = this.cookie2Map();
+    // map[key] = value;
     // document.cookie = this.map2Cookie(map);
-     this.setCookie(key, value, {
+    this.setCookie(key, value, {
       // domain: location.host ?? document.domain,
-      path: '/',
-      debug: process.env.NODE_ENV === 'development',
-     });
+      path: "/",
+      debug: process.env.NODE_ENV === "development",
+    });
   }
 
   get(key: string) {

@@ -14,6 +14,7 @@
     "postinstall": "patch-package"
   },
   "dependencies": {
+    "@prisma/client": "^5.14.0",
     "core-js": "3",
     "crypto-js": "^4.2.0",
     "i18next": "^23.11.5",
@@ -38,6 +39,7 @@
     "nodemon": "^3.1.0",
     "postcss-flexbugs-fixes": "^5.0.2",
     "postcss-preset-env": "^9.5.11",
+    "prisma": "^5.14.0",
     "stylelint": "^16.5.0",
     "stylelint-no-unsupported-browser-features": "^8.0.1",
     "typescript": "5.4.5"
