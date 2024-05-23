@@ -20,3 +20,14 @@ try {
 } catch (error) {
   
 }
+
+try {
+  console.log('===>')
+  const message = 'Message';
+  const encrypted = crypto.enc.Base64url.stringify(crypto.enc.Utf8.parse(message));
+  const decrypted = crypto.enc.Base64url.parse(encrypted);
+  console.log('<===')
+  console.log(decrypted.toString(crypto.enc.Utf8));
+} catch (error) {
+  console.error(error);
+}
