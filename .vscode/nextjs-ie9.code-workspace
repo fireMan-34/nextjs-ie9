@@ -12,7 +12,8 @@
 		"editor.fontLigatures": true,
 		"path-intellisense.mappings": {
 			"/images": "${workspaceFolder}/public/images",
-			"/medias": "${workspaceFolder}/public/medias"
+			"/medias": "${workspaceFolder}/public/medias",
+			"/api": "${workspaceFolder}/pages/api"
 		}
 	},
 	"launch": {

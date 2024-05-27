@@ -1,0 +1,22 @@
+<mxfile host="65bd71144e">
+    <diagram id="FAMcKlBlSq6JOcy9fYNr" name="第 1 页">
+        <mxGraphModel dx="582" dy="272" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+            <root>
+                <mxCell id="0"/>
+                <mxCell id="1" parent="0"/>
+                <mxCell id="2" value="客户端" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+                    <mxGeometry x="80" y="40" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="3" value="服务端" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+                    <mxGeometry x="490" y="40" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="4" value="&lt;ol&gt;&lt;li&gt;客户端通常包括 web 以及各种终端设备&lt;/li&gt;&lt;li&gt;从客户端进行攻击通常从操作端（伪造、镜像终端攻击）（嵌入式代码攻击）（网络层攻击）（毒邮件毒链接等）（社会工程欺骗）（撞库）（行为缺陷）&lt;/li&gt;&lt;li&gt;所以从开发角度从前端角度需要确保用户登录信息不被盗用。（防止嵌入代码攻击（对非可信用户来源的代码入口）进行关闭）（静默探测汇报）（api 鉴权）（弱化逆向能力）&lt;/li&gt;&lt;/ol&gt;" style="text;strokeColor=none;fillColor=none;html=1;whiteSpace=wrap;verticalAlign=middle;overflow=hidden;" vertex="1" parent="1">
+                    <mxGeometry x="80" y="120" width="320" height="220" as="geometry"/>
+                </mxCell>
+                <mxCell id="5" value="&lt;ol&gt;&lt;li&gt;登录 RSA&lt;/li&gt;&lt;li&gt;添加随机盐，避免重放攻击&lt;/li&gt;&lt;li&gt;Value 3&lt;/li&gt;&lt;/ol&gt;" style="text;strokeColor=none;fillColor=none;html=1;whiteSpace=wrap;verticalAlign=middle;overflow=hidden;" vertex="1" parent="1">
+                    <mxGeometry x="170" y="300" width="300" height="320" as="geometry"/>
+                </mxCell>
+            </root>
+        </mxGraphModel>
+    </diagram>
+</mxfile>

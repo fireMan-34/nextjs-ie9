@@ -1,9 +1,10 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useRouter } from "next/router";
-import { AES, HmacSHA256, enc } from "crypto-js";
+import { AES } from "crypto-js";
 
 import { PUBLIC_AUTH_KEY } from "constants/index";
 import { CookieStorage } from "utils/client.cookie";
+import { parsesAccessToken, createAccessToken } from "utils/auth/user";
 
 interface UseUser {}
 
@@ -17,6 +18,11 @@ interface RegisterCustomUser {
   userName: string;
   password: string;
   email?: string;
+}
+
+interface LoginCustomUser {
+  username: string;
+  password: string;
 }
 
 export default function useUser(props: UseUser) {
@@ -39,10 +45,6 @@ export default function useUser(props: UseUser) {
     };
   }
 
-  const decryptBase64AndJson = (msg: string) => {
-    return JSON.parse(enc.Base64url.parse(msg).toString(enc.Utf8));
-  };
-
   async function registerCustomUser(arg: RegisterCustomUser) {
     const { userName, password, email } = arg;
     const timestamp = Date.now().toString();
@@ -58,41 +60,61 @@ export default function useUser(props: UseUser) {
       ["encryted-password"]: encrytedPassword.toString(),
     };
 
-    const data: { accessToken: string; msg?: string } = await fetch(
-      "/api/customer/user/register",
-      {
-        method: "POST",
-        headers: headers,
-      }
-    ).then((res) => res.json());
+    try {
+      const data: { accessToken: string; msg?: string } = await fetch(
+        "/api/customer/user/register",
+        {
+          method: "POST",
+          headers: headers,
+        }
+      ).then((res) => res.json());
 
-    if (data.accessToken) {
-      const [headerEncode, payloadEncode, signatuire] =
-        data.accessToken.split(".");
-      const header = decryptBase64AndJson(headerEncode);
-      const payload = decryptBase64AndJson(payloadEncode);
-      const clientSignature = HmacSHA256(
-        `${headerEncode}.${payloadEncode}`,
-        PUBLIC_AUTH_KEY
-      ).toString();
-      if (clientSignature !== signatuire) {
-        alert("无效签名");
-      } else if (Date.now() >= payload.exp) {
-        alert("token 接近超时");
+      if (!data.accessToken) {
+        throw new Error("注册失败: " + data.msg ?? "");
+      }
+
+      const { payload } = parsesAccessToken(data.accessToken);
+      const { exp } = payload;
+      setUser(payload);
+      new CookieStorage().setCookie("accessToken", data.accessToken, {
+        expires: exp,
+      });
+      router.push("/Login", null, {});
+    } catch (err) {
+      if (typeof err === "string") {
+        alert(err);
+      } else if (typeof err.msg === "string") {
+        alert(err.msg);
       } else {
-        const { exp } = payload;
-
-        const cookie = new CookieStorage();
-        cookie.setCookie("accessToken", data.accessToken, { expires: exp });
-        setUser(user);
-        router.push('/Login', null, {});
+        console.error(err);
       }
-    } else {
-      alert("注册失败: " + data.msg ?? "");
     }
   }
 
   function resetCustomUser() {}
+
+  async function loginCustomUser(params: LoginCustomUser) {
+    const { username, password, } = params;
+    
+    const data = await fetch('/api/customer/user/login', {
+      method: 'POST',
+      body: JSON.stringify({
+      }),
+    })
+    .then(data => data.json());
+
+    if (data.err) {
+      throw new Error(data.err);
+    }
+
+    if (!data.accessToken) {
+      throw new Error('令牌无返回');
+    }
+
+    const { header, payload, signatuire } = parsesAccessToken(data.accessToken);
+
+
+  }
 
   return {
     user,

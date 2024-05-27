@@ -54,15 +54,14 @@ const handler: NextApiHandler = async (req, res) => {
 
     const hasUserCheck = await prisma.user.findFirst({
       where: {
-        name: userName,
+        OR: [{ name: userName }, ...(email ? [{ email }] : [])],
       },
     });
 
     if (hasUserCheck) {
-      return res.status(200).json({
-        msg: "has same account",
-        hasUserCheck,
-        accessToken: createAccessToken(hasUserCheck.id),
+      return res.status(500).json({
+        error: 1,
+        msg: hasUserCheck.name === userName ? "account exist" : "email exist",
       });
     }
 
@@ -80,7 +79,7 @@ const handler: NextApiHandler = async (req, res) => {
       userInfo,
       userPassword,
       user,
-      accessToken: createAccessToken(user.id)
+      accessToken: createAccessToken(user.id),
     });
   }
 };
