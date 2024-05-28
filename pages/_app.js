@@ -3,7 +3,7 @@ import { SessionProvider } from 'next-auth/react';
 import ErrorBoundary from 'compoents/DefaultErrorBoundary';
 import Layout from 'layouts/layout';
 import '../styles/globals.css'
-
+  
 function MyApp({ Component, pageProps: { session, ...pageProps } }) {
 
   const getLayout = Component.getLayout || ((page) => <Layout>{page}</Layout>);
