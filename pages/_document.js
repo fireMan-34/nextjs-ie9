@@ -2,6 +2,9 @@ import Document,{ Html, Head, Main, NextScript, } from "next/document";
 import Script from "next/script";
 import Jump from "layouts/Jump";
 import { initReactI18next } from "react-i18next";
+import { gsap } from 'gsap';
+import { useGSAP } from '@gsap/react';
+
 
 /**
  * @type {import("next/document").DocumentInitialProps}
@@ -19,6 +22,9 @@ export const getInitialProps = async (ctx) => {
 };
 
 export default function NextDocument() {
+  
+  gsap.registerPlugin(useGSAP);
+
   return <Html>
     <Head>
       {/* 降级方案 */}

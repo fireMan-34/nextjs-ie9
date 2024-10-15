@@ -1,5 +1,4 @@
-import { HmacSHA256, enc, lib, AES, SHA256, } from "crypto-js";
-import { JwkObject } from 'jsrsasign';
+import { HmacSHA256, enc, lib, AES, } from "crypto-js";
 
 import { PUBLIC_AUTH_KEY } from "constants/index";
 

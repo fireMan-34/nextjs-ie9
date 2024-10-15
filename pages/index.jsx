@@ -1,10 +1,27 @@
 /* eslint-disable @next/next/no-html-link-for-pages */
-import Head from 'next/head'
-import Image from 'next/image'
-import Link from 'next/link'
-import styles from '@styles/Home.module.css'
+import Head from "next/head";
+import Image from "next/image";
+import Link from "next/link";
+import { gsap } from "gsap";
+import { useGSAP } from "@gsap/react";
+import { useRef } from "react";
+import styles from "@styles/Home.module.css";
 
 export default function Home({ pageTime }) {
+  const container = useRef();
+  const box = useRef();
+  // 报错
+  useGSAP(
+    () => {
+      if (box.current && container.current) {
+        gsap.to(".box", { x: 300 });
+      }
+    },
+    {
+      scope: container,
+    }
+  );
+
   return (
     <div className={styles.container}>
       <Head>
@@ -15,19 +32,29 @@ export default function Home({ pageTime }) {
 
       <main className={styles.main}>
         <h1 className={styles.title}>
-          Welcome to <span>Fixable IE9+</span> <a href="https://nextjs.org">Next.js!</a>
+          Welcome to <span>Fixable IE9+</span>{" "}
+          <a href="https://nextjs.org">Next.js!</a>
           <span>Run time: {pageTime}</span>
         </h1>
-        <button onClick={function () { console.log('ok') }} >Check Button If Ok</button>
+        <button
+          onClick={function () {
+            console.log("ok");
+          }}
+        >
+          Check Button If Ok
+        </button>
         <div className={styles.routeNav}>
-          <Link href={'/settings'}>Use NextLink to Settings </Link>
-          <a href='/settings' >Use Browser A To Jump Link</a>
-          <Link href={'/doc'}>Use NextLink to Doc </Link>
+          <Link href={"/settings"}>Use NextLink to Settings </Link>
+          <a href="/settings">Use Browser A To Jump Link</a>
+          <Link href={"/doc"}>Use NextLink to Doc </Link>
+        </div>
+        <div className={styles["ani-container"]}>
+          <div ref={container} className={styles["ani-box"]}></div>
+          <div ref={box} className={`${styles.box} box`}></div>
         </div>
       </main>
 
-      <footer className={styles.footer}>
-      </footer>
+      <footer className={styles.footer}></footer>
     </div>
-  )
+  );
 }
