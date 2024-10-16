@@ -14,7 +14,8 @@
 			"/images": "${workspaceFolder}/public/images",
 			"/medias": "${workspaceFolder}/public/medias",
 			"/api": "${workspaceFolder}/pages/api"
-		}
+		},
+		"typescript.tsdk": "node_modules\\typescript\\lib"
 	},
 	"launch": {
 		"version": "0.2.0",
