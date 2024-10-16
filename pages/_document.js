@@ -1,6 +1,5 @@
 import Document,{ Html, Head, Main, NextScript, } from "next/document";
 import Script from "next/script";
-import Jump from "layouts/Jump";
 import { initReactI18next } from "react-i18next";
 import { gsap } from 'gsap';
 import { useGSAP } from '@gsap/react';
@@ -34,7 +33,6 @@ export default function NextDocument() {
         */}
     </Head>
     <body>
-      <Jump />
       <Main />
       <NextScript />
       <Script 
