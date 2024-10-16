@@ -33,7 +33,6 @@
   "devDependencies": {
     "@next/env": "12.3.4",
     "@types/crypto-js": "^4.2.2",
-    "@types/jsrsasign": "^10.5.14",
     "@types/node": "20.12.8",
     "@types/react": "17.0.2",
     "chai": "^5.1.1",
@@ -51,11 +50,9 @@
     "typescript": "5.4.5"
   },
   "overrides": {
-    "@gsap/react": {
-      "react": "17.0.2"
-    }
   },
   "resolutions": {
-    "@gsap/react/react": "17.0.2"
+    "@gsap/react/react": "17.0.2",
+    "next-i18next/@types/hoist-non-react-statics/@types/react": "17.0.2"
   }
 }
