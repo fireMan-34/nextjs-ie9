@@ -39,7 +39,10 @@
   padding: 0 24px;
   margin: 8px 0;
   background-color: white;
-  position: relative;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .ani-box {
@@ -52,8 +55,5 @@
 .box {
   width: 25px;
   height: 25px;
-  position: absolute;
-  bottom: 0;
-  right: 100px;
   background-color: green;
 }

@@ -2,24 +2,35 @@
 import Head from "next/head";
 import Image from "next/image";
 import Link from "next/link";
+import { useRef } from "react";
 import { gsap } from "gsap";
 import { useGSAP } from "@gsap/react";
-import { useRef } from "react";
 import styles from "@styles/Home.module.css";
+import useForceUpdate from "hooks/useForceUpdate";
 
 export default function Home({ pageTime }) {
-  const container = useRef();
-  const box = useRef();
-  // 报错
+  const [animationUpdate, updateAnimation] = useForceUpdate();
+  /**
+   * @type {import("react").MutableRefObject<HTMLDivElement>}
+   */
+  const container = useRef(null);
+  /**
+   * @type {import("react").MutableRefObject<HTMLDivElement>}
+   */
+  const box = useRef(null);
+
   useGSAP(
     () => {
-      if (box.current && container.current) {
-        gsap.to(".box", { x: 300 });
-      }
+      gsap.to([container.current], { x: () => 500, duration: 3 });
+      gsap.to([box.current], { x: -500, rotate: "+=360", duration: 3 });
     },
-    {
-      scope: container,
-    }
+    { 
+      dependencies: [animationUpdate], 
+      // 恢复初始动画
+      revertOnUpdate: true,
+      // 查询后代类名，如果不是生成类名可以使用减少 DOM 的使用
+      // scope: container,
+     }
   );
 
   return (
@@ -48,8 +59,9 @@ export default function Home({ pageTime }) {
           <a href="/settings">Use Browser A To Jump Link</a>
           <Link href={"/doc"}>Use NextLink to Doc </Link>
         </div>
+        <button onClick={updateAnimation}>触发动画{animationUpdate}</button>
         <div className={styles["ani-container"]}>
-          <div ref={container} className={styles["ani-box"]}></div>
+          <div ref={container} className={`${styles["ani-box"]} ani-box`}></div>
           <div ref={box} className={`${styles.box} box`}></div>
         </div>
       </main>
